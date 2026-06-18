@@ -19,6 +19,10 @@ namespace MachineManagementAPI.Services
          public async Task<IEnumerable<MachineDto>> GetAllMachineAsync()
         {
             var machines = await _repo.GetAllMachineAsync();
+            if (machines == null)
+            {
+                throw new Exception("No machine found");
+            }
             return machines.Select(m=> new MachineDto
             {
                 Name = m.Name,
@@ -40,7 +44,7 @@ namespace MachineManagementAPI.Services
             var machine = await _repo.GetMachineByIdAsync(id);
             if (machine == null)
             {
-                return null;
+                throw new Exception("No machine found");
             }
             return new MachineDto
             {
@@ -53,7 +57,7 @@ namespace MachineManagementAPI.Services
 
         }
 
-        public async Task<MachineDto> CreateMachineAsync(CreateMachineDto dto)
+        public async Task CreateMachineAsync(CreateMachineDto dto)
         {
             var machine = new Machine
             {
@@ -62,17 +66,14 @@ namespace MachineManagementAPI.Services
                 Location = dto.Location,
                 Status = dto.Status,
             };
-
-            var create = await _repo.CreateMachineAsync(machine);
-            return new MachineDto
+            
+             if( string.IsNullOrWhiteSpace( machine.SerialNumber)|| string.IsNullOrWhiteSpace(machine.Location))
             {
-                Id = create.Id,
-                Name = create.Name,
-                SerialNumber = create.SerialNumber,
-                Location = create.Location,
-                Status = create.Status,
-                PurchaseDate = create.PurchaseDate
-            };
+                throw new ArgumentException("Enter Complete Machine Details");
+            }
+
+             await _repo.CreateMachineAsync(machine);
+           
         }
 
 

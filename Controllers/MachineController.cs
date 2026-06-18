@@ -35,10 +35,10 @@ namespace MachineManagementAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MachineDto>> CreateMachineAsync(CreateMachineDto dto)
+        public async Task<ActionResult> CreateMachineAsync(CreateMachineDto dto)
         {
-            var result = await _service.CreateMachineAsync(dto);
-            return Ok(result);  
+             await _service.CreateMachineAsync(dto);
+            return NoContent();  
         }
 
         [HttpPut]

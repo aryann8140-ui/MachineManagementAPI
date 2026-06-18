@@ -27,11 +27,10 @@ namespace MachineManagementAPI.Repository
             return machine ;
         }
 
-        public async Task<Machine> CreateMachineAsync(Machine machine)
+        public async Task CreateMachineAsync(Machine machine)
         {
             _context.Add(machine);
             await _context.SaveChangesAsync();
-            return machine;
         }
      
          public async Task<Machine> UpdateMachineAsync(Machine machine)
