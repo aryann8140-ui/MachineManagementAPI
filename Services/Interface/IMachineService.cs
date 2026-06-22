@@ -5,10 +5,10 @@ namespace MachineManagementAPI.Services.Interface
 {
     public interface IMachineService
     {
-        public Task<IEnumerable<MachineDto>> GetAllMachineAsync();
+        public Task<IEnumerable<MachineDto>?> GetAllMachineAsync();
         public Task<MachineDto?> GetMachineByIdAsync(int id);
         public Task CreateMachineAsync(CreateMachineDto dto);
-        public Task<MachineDto> UpdateMachineAsync(int id , UpdateMachineDto dto);
+        public Task UpdateMachineAsync(int id , UpdateMachineDto dto);
         public Task DeleteMachineAsync(int id);
         public Task<IEnumerable<MachineDto>> GetMachineByStatus(MachineStatus status);
         

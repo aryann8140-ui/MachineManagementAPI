@@ -17,7 +17,7 @@ namespace MachineManagementAPI.Controllers
         }
 
         [HttpGet]
-         public async Task<ActionResult<IEnumerable<MachineDto>>> GetAllMachineAsync()
+         public async Task<ActionResult<IEnumerable<MachineDto>?>> GetAllMachineAsync()
         {
             var result = await _service.GetAllMachineAsync();
              return Ok(result);
@@ -42,8 +42,9 @@ namespace MachineManagementAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UpdateMachineAsync(int id , UpdateMachineDto dto)
+        public async Task<ActionResult> UpdateMachineAsync(int id , UpdateMachineDto dto)
         {
+    
             await _service.UpdateMachineAsync(id,dto);
             return NoContent();
         }

@@ -14,7 +14,7 @@ namespace MachineManagementAPI.Repository
             _context = context ;
         }
 
-        public async Task<IEnumerable<Machine>> GetAllMachineAsync()
+        public async Task<IEnumerable<Machine>?> GetAllMachineAsync()
         {
             var machines = await _context.Machine.ToListAsync();
             return machines;
@@ -33,11 +33,10 @@ namespace MachineManagementAPI.Repository
             await _context.SaveChangesAsync();
         }
      
-         public async Task<Machine> UpdateMachineAsync(Machine machine)
+         public async Task UpdateMachineAsync(Machine machine)
         {
             _context.Update(machine);
             await _context.SaveChangesAsync();
-            return machine;
         }
 
         public async Task DeleteMachineAsync(int id)

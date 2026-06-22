@@ -16,12 +16,12 @@ namespace MachineManagementAPI.Services
             _repo = repo;
         }
 
-         public async Task<IEnumerable<MachineDto>> GetAllMachineAsync()
+         public async Task<IEnumerable<MachineDto>?> GetAllMachineAsync()
         {
             var machines = await _repo.GetAllMachineAsync();
             if (machines == null)
             {
-                throw new Exception("No machine found");
+                throw new ArgumentNullException("No machine found");
             }
             return machines.Select(m=> new MachineDto
             {
@@ -44,7 +44,7 @@ namespace MachineManagementAPI.Services
             var machine = await _repo.GetMachineByIdAsync(id);
             if (machine == null)
             {
-                throw new Exception("No machine found");
+                throw new ArgumentNullException("No machine found");
             }
             return new MachineDto
             {
@@ -77,8 +77,12 @@ namespace MachineManagementAPI.Services
         }
 
 
-        public async Task<MachineDto> UpdateMachineAsync(int id , UpdateMachineDto dto)
+        public async Task UpdateMachineAsync(int id , UpdateMachineDto dto)
         {
+            if (id <= 0)
+            {
+                throw new ArgumentException("Enter valid Id");
+            }
             var machine = await _repo.GetMachineByIdAsync(id);
             if (machine == null)
             {
@@ -91,15 +95,6 @@ namespace MachineManagementAPI.Services
             machine.Status=dto.Status;
 
             await _repo.UpdateMachineAsync(machine);
-            
-            return new MachineDto
-            {
-                Name = machine.Name,
-                SerialNumber = machine.SerialNumber,
-                Location = machine.Location,
-                Status = machine.Status,
-                PurchaseDate = machine.PurchaseDate
-            };
 
         }
           
