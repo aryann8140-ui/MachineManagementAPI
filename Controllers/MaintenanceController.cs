@@ -23,10 +23,10 @@ namespace MachineManagementAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<MaintenanceDto>> CreateMaintenanceLogAsync(CreateMaintenanceDto dto)
+        public async Task<ActionResult> CreateMaintenanceLogAsync(CreateMaintenanceDto dto)
         {
-            var result = await _service.CreateMaintenanceLogAsync(dto);
-            return CreatedAtAction(nameof(GetMaintenanceLogAsync), null, result);
+             await _service.CreateMaintenanceLogAsync(dto);
+            return NoContent();
         }
 
 

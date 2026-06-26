@@ -27,7 +27,7 @@ namespace MachineManagementAPI.Services
 
         }
 
-        public async Task<MaintenanceDto> CreateMaintenanceLogAsync(CreateMaintenanceDto dto)
+        public async Task CreateMaintenanceLogAsync(CreateMaintenanceDto dto)
         {
             var maintenance = new MaintenanceLog
             {
@@ -37,17 +37,7 @@ namespace MachineManagementAPI.Services
                 Cost = dto.Cost
             };
 
-            var create = await _repo.CreateMaintenanceLogAsync(maintenance);
-            
-            return new MaintenanceDto
-            {
-                MachineId = create.MachineId,
-                Description = create.Description,
-                PerformedBy = create.PerformedBy,
-                Cost = create.Cost
-            };       
-
-
+             await _repo.CreateMaintenanceLogAsync(maintenance);
         
     }
 }

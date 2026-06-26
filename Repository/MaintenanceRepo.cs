@@ -19,11 +19,10 @@ namespace MachineManagementAPI.Repository
             return maintenanceLog;
         }
 
-        public async Task<MaintenanceLog> CreateMaintenanceLogAsync(MaintenanceLog maintenanceLog)
+        public async Task CreateMaintenanceLogAsync(MaintenanceLog maintenanceLog)
         {
              _context.Add(maintenanceLog);
              await _context.SaveChangesAsync();
-             return maintenanceLog;
         }
 
 
